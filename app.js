@@ -1,21 +1,27 @@
 const express=require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-
-
+const homeRoute=require("./routes/home/home");
+const dogsRoute=require("./routes/dogs/dogs");
+const catsRoute=require("./routes/cats/cats");
+const signUpRoute=require("./routes/register/signUp/signUp");
+const logInRoute=require("./routes/register/signIn/signIn");
 const app=express();
+
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-app.get("/",function(req,res){
-    res.sendFile(__dirname+"/public/home.html")
-});
+//Routes
+app.use(homeRoute);
+app.use(dogsRoute);
+app.use(catsRoute);
+app.use(signUpRoute);
+app.use(logInRoute);
 
-app.get("/dogs",function(req,res){
-    res.send("Dogs are here!");
-});
 
+//setting up the server
 app.listen(3000, function() {
     console.log("Server started on port 3000");
   });
